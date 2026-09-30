@@ -1,0 +1,26 @@
+# Запуск бота подботов: Long Polling, SQLite на томе, рестарт при падении.
+#
+#   docker compose up -d --build
+#   docker compose logs -f
+#
+# Токен и никнейм берутся из .env рядом с этим файлом.
+
+services:
+  bot:
+    build: .
+    image: max-booking-bot:latest
+    container_name: max-booking-bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DATABASE_PATH: /app/data/bot.db
+      TZ: ${TZ:-Europe/Moscow}
+    volumes:
+      # БД переживает пересборку образа и перезапуск контейнера.
+      - botdata:/app/data
+    # Long Polling не требует входящих соединений, порты пробрасывать не нужно.
+    stop_grace_period: 30s
+
+volumes:
+  botdata:

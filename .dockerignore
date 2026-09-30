@@ -1,0 +1,45 @@
+# Исходный код бота в контейнер не копируется.
+#
+# Исключается всё, что не нужно для запуска: тесты, кэши линтера,
+# виртуальное окружение и живой .env с токеном. Копируется только
+# requirements.txt и каталог bot — то, из чего собирается рабочий образ.
+
+.git
+.gitignore
+.venv
+venv
+env
+__pycache__
+**/__pycache__
+*.py[cod]
+*.pyo
+
+# Проверочные инструменты: в образе им не место, а .dockerignore
+# ускоряет контекст сборки.
+tests
+.pytest_cache
+.ruff_cache
+requirements-dev.txt
+requirements-lock.txt
+
+# Данные и состояние запуска
+data
+*.db
+*.db-wal
+*.db-shm
+*.log
+
+# Живой токен бота. В образ попадает только .env.example.
+.env
+.env.*
+!.env.example
+
+# Артефакты локального прогона и пакет ответа хакатона
+bot.out
+bot.err
+bot.pid
+answer
+README.md
+LICENSE
+*.md
+!README.md

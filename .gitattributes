@@ -1,0 +1,20 @@
+# Переносы строк нормализуются в репозитории, чтобы один и тот же коммит
+# давал одинаковые файлы на Windows и Linux. Без этого архив, собранный
+# на Windows, отличался бы от собранного на Linux только переносами строк.
+
+* text=auto eol=lf
+
+*.py text eol=lf
+*.sql text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.txt text eol=lf
+*.md text eol=lf
+Dockerfile text eol=lf
+.dockerignore text eol=lf
+.gitignore text eol=lf
+.env.example text eol=lf
+
+# Токен бота — всегда текст, иначе git может решить иначе по содержимому.
+.env text eol=lf
